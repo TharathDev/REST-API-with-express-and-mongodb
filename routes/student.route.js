@@ -1,39 +1,19 @@
 const express = require("express");
-
+const createError = require("http-errors");
+const mongoose = require("mongoose");
+const StudentController = require("../Controller/student.controller");
 const router = express.Router();
 
 const Student = require("../Model/student.model");
 
-router.get("/", (req, res, next) => {
-  res.send("im sending");
-});
+router.get("/", StudentController.listAllStudent);
 
-router.post("/", (req, res, next) => {
-  const student = new Student({
-    name: req.body.name,
-    gender: req.body.gender,
-  });
-  student
-    .save()
-    .then((result) => {
-      console.log(result);
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-});
+router.post("/register", StudentController.registerStudent);
 
-router.get("/:id", (req, res, next) => {
-  res.send("get single student");
-});
+router.get("/:id", StudentController.getStudentById);
 
-router.patch("/:id", (req, res, next) => {
-  res.send("update single student");
-});
+router.patch("/:id", StudentController.updateStudentInfo);
 
-router.delete("/:id", (req, res, next) => {
-  res.send("delete single student");
-});
+router.delete("/:id", StudentController.deleteStudentInfo);
 
 module.exports = router;

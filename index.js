@@ -11,7 +11,7 @@ require("./initDB")();
 
 const student = require("./routes/student.route");
 
-app.use("/student", student);
+app.use("/students", student);
 
 app.use((req, res, next) => {
   res.status(404);
