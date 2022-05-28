@@ -11,7 +11,15 @@ require("./initDB")();
 
 const student = require("./routes/student.route");
 
-app.use("/students", student);
+const school = require("./routes/school.route");
+
+const major = require("./routes/major.route");
+
+app.use("/students-service", student);
+
+app.use("/schools-service", school);
+
+app.use("/majors-service", major);
 
 app.use((req, res, next) => {
   res.status(404);
@@ -19,12 +27,6 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  /*
-    const err = new Error('Not found');
-    err.status = 404;
-    next(err);
-    */
-  // You can use the above code if your not using the http-errors module
   next(createError(404, "Not found"));
 });
 
